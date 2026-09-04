@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Scan Medicine | MedInfo{% endblock %}
+
+{% block content %}
+<section class="scan-page">
+    <p class="eyebrow">Image reader</p>
+    <h1>Scan Medicine</h1>
+    <p class="intro">Upload a clear photo of a medicine package or strip.</p>
+
+    <form class="scan-form" method="post" enctype="multipart/form-data">
+        <label for="medicine-image">Choose Image</label>
+        <input id="medicine-image" name="medicine_image" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp">
+        <p class="form-help">Accepted formats: PNG, JPG, JPEG, WEBP. Maximum size: 5 MB.</p>
+        <button type="submit">Scan Medicine</button>
+    </form>
+
+    {% if error_message %}<div class="scan-error" role="alert">{{ error_message }}</div>{% endif %}
+
+    {% if detected_text is not none %}
+    <section class="scan-result">
+        <h2>Detected text</h2>
+        {% if detected_text %}<p class="detected-text">{{ detected_text }}</p>{% else %}<p class="detected-text">No text was detected in this image.</p>{% endif %}
+
+        {% if medicine %}
+        <div class="scan-medicine">
+            <p class="eyebrow">Possible medicine detected</p>
+            <h2>{{ medicine["name"] }}</h2>
+            <p><strong>Generic name:</strong> {{ medicine["generic_name"] }}</p>
+            <p><strong>Active ingredients:</strong> {{ medicine["ingredients"] }}</p>
+            <p><strong>Category:</strong> {{ medicine["category"] }}</p>
+            <p><strong>General uses:</strong> {{ medicine["general_uses"] }}</p>
+            <p><strong>Warnings:</strong> {{ medicine["warnings"] }}</p>
+            <p><strong>Side effects:</strong> {{ medicine["side_effects"] }}</p>
+            <p><strong>Storage:</strong> {{ medicine["storage_information"] }}</p>
+            <p><strong>Interactions:</strong> {{ medicine["interaction_information"] }}</p>
+            <div class="scan-actions">
+                <a class="button-link" href="{{ url_for('medicine_details', medicine_id=medicine['id']) }}">View full details</a>
+                <a class="button-link secondary-link" href="{{ url_for('chatbot', medicine_id=medicine['id']) }}">Ask about this medicine</a>
+            </div>
+        </div>
+        {% elif detected_text %}
+        <div class="empty-state"><h2>Medicine not found in our verified database</h2><p>Search medicines manually to check the available records.</p><a class="button-link" href="{{ url_for('medicine_search') }}">Search medicines manually</a></div>
+        {% endif %}
+        {% if not detected_text and not medicine and not error_message %}<div class="empty-state"><h2>No text detected.</h2><p>Try a clearer photo with the medicine name visible.</p></div>{% endif %}
+    </section>
+    {% endif %}
+
+    <section class="disclaimer"><strong>Medical safety notice</strong><p>OCR only reads text from an image. It does not verify whether a medicine is genuine, safe, or suitable for you. This application provides general medicine information for educational purposes only. Consult a qualified doctor or pharmacist for personal medical advice.</p></section>
+</section>
+{% endblock %}

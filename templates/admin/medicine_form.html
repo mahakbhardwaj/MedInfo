@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | MedInfo{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <p class="eyebrow">Administration</p><h1>{{ page_title }}</h1>
+    <form class="medicine-form" method="post">
+        {% for field, label in [("name", "Medicine name"), ("generic_name", "Generic name"), ("category", "Category"), ("general_uses", "General uses"), ("warnings", "Warnings"), ("side_effects", "Side effects"), ("ingredients", "Ingredients"), ("storage_information", "Storage information"), ("interaction_information", "Interaction information"), ("source", "Source")] %}
+        <label for="{{ field }}">{{ label }}</label>
+        {% if field in ["general_uses", "warnings", "side_effects", "ingredients", "storage_information", "interaction_information", "source"] %}<textarea id="{{ field }}" name="{{ field }}" rows="3" required>{{ medicine.get(field, "") }}</textarea>{% else %}<input id="{{ field }}" name="{{ field }}" value="{{ medicine.get(field, "") }}" required>{% endif %}
+        {% endfor %}
+        <button type="submit">Save Medicine</button>
+    </form>
+</section>
+{% endblock %}

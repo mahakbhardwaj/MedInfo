@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Medicines | MedInfo{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <div class="admin-heading"><div><p class="eyebrow">Administration</p><h1>Manage medicines</h1></div><a class="button-link" href="{{ url_for('admin_add_medicine') }}">Add Medicine</a></div>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>ID</th><th>Medicine Name</th><th>Generic Name</th><th>Category</th><th>Actions</th></tr></thead>
+            <tbody>
+                {% for medicine in medicines %}
+                <tr>
+                    <td>{{ medicine["id"] }}</td><td>{{ medicine["name"] }}</td><td>{{ medicine["generic_name"] }}</td><td>{{ medicine["category"] }}</td>
+                    <td class="actions"><a href="{{ url_for('medicine_details', medicine_id=medicine['id']) }}">View</a><a href="{{ url_for('admin_edit_medicine', medicine_id=medicine['id']) }}">Edit</a><form method="post" action="{{ url_for('admin_delete_medicine', medicine_id=medicine['id']) }}" onsubmit="return confirm('Delete this medicine?');"><button class="danger-button" type="submit">Delete</button></form></td>
+                </tr>
+                {% else %}<tr><td colspan="5">No medicines found.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

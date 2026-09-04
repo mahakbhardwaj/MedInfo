@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Chat History | MedInfo{% endblock %}
+
+{% block content %}
+<section class="history-page">
+    <div class="history-heading">
+        <div>
+            <p class="eyebrow">Saved conversations</p>
+            <h1>Chat history</h1>
+            <p class="intro">Review questions and answers saved by the medicine information assistant.</p>
+        </div>
+        {% if history %}
+        <form action="{{ url_for('clear_history') }}" method="post" onsubmit="return confirm('Clear all saved chat history? This cannot be undone.');">
+            <button class="secondary-button" type="submit">Clear Chat History</button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% if history %}
+    <div class="history-list">
+        {% for conversation in history %}
+        <article class="history-card">
+            <div class="history-card-heading">
+                <span class="feature-number">{{ conversation["intent"] }}</span>
+                <time datetime="{{ conversation["created_at"] }}">{{ conversation["created_at"] }}</time>
+            </div>
+            <h2>Question</h2>
+            <p class="history-question">{{ conversation["question"] }}</p>
+            <h2>Answer</h2>
+            <p>{{ conversation["answer"] }}</p>
+            <p class="history-medicine"><strong>Medicine:</strong> {{ conversation["medicine_name"] or "Not identified" }}</p>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h2>No chat history yet.</h2>
+        <p>Questions successfully sent to the chatbot will appear here.</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Medicine Information Assistant{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Medicine information, made clear</p>
+        <h1>Understand your medicine before you reach for it.</h1>
+        <p class="intro">Search trusted general information, ask a focused question, or identify a package label with OCR.</p>
+        <form class="search-form" action="{{ url_for('medicine_search') }}" method="get">
+            <label for="medicine-search">Search by medicine name</label>
+            <div class="search-row">
+                <input id="medicine-search" name="medicine" type="search" placeholder="e.g. Paracetamol" autocomplete="off">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="hero-note" aria-label="Project status">
+        <span class="status-dot"></span>
+        <div>
+            <strong>Simple by design</strong>
+            <p>Clear information from a focused medicine database.</p>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="feature-section">
+    <div class="section-heading">
+        <p class="eyebrow">Start here</p>
+        <h2>Three ways to get oriented</h2>
+    </div>
+    <div class="feature-grid">
+        <article class="feature-card">
+            <span class="feature-number">01</span>
+            <h3>Search medicine</h3>
+            <p>Find general uses, warnings, ingredients, storage, and interactions.</p>
+        </article>
+        <article class="feature-card accent-card">
+            <span class="feature-number">02</span>
+            <h3>Ask the assistant</h3>
+            <p>Ask a natural-language question and choose a clear information topic.</p>
+        </article>
+        <article class="feature-card">
+            <span class="feature-number">03</span>
+            <h3>Read a label</h3>
+            <p>Upload a package photo and use OCR to find a possible medicine match.</p>
+        </article>
+    </div>
+</section>
+
+<section id="safety" class="disclaimer">
+    <strong>Medical safety notice</strong>
+    <p>This application provides general medicine information for educational purposes only. It does not provide medical diagnosis or treatment advice. Consult a qualified doctor or pharmacist for personal medical advice.</p>
+</section>
+{% endblock %}

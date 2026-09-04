@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block title %}Chat Statistics | MedInfo{% endblock %}
+
+{% block content %}
+<section class="admin-page"><p class="eyebrow">Administration</p><h1>Chat statistics</h1><div class="table-wrap"><table><thead><tr><th>Intent</th><th>Conversation count</th></tr></thead><tbody>{% for item in intents %}<tr><td>{{ item["intent"] }}</td><td>{{ item["count"] }}</td></tr>{% else %}<tr><td colspan="2">No conversations yet.</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

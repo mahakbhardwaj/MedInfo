@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{% if medicine is none %}Medicine Not Found{% else %}{{ medicine["name"] }}{% endif %} | MedInfo{% endblock %}
+
+{% block content %}
+<section class="details-page">
+    {% if medicine is none %}
+    <p class="eyebrow">Medicine library</p>
+    <h1>Medicine not found</h1>
+    <p class="intro">This medicine does not exist in the database.</p>
+    <a class="back-link" href="{{ url_for('medicine_search') }}">&larr; Back to medicine search</a>
+    {% else %}
+    <a class="back-link" href="{{ url_for('medicine_search') }}">&larr; Back to medicine search</a>
+    <p class="eyebrow">Medicine information</p>
+    <h1>{{ medicine["name"] }}</h1>
+    <p class="details-subtitle"><strong>Generic name:</strong> {{ medicine["generic_name"] }} &middot; <strong>Category:</strong> {{ medicine["category"] }}</p>
+    <a class="ask-link" href="{{ url_for('chatbot', medicine_id=medicine['id']) }}">Ask about this medicine &rarr;</a>
+
+    <div class="details-grid">
+        <article class="info-panel">
+            <h2>General uses</h2>
+            <p>{{ medicine["general_uses"] }}</p>
+        </article>
+        <article class="info-panel warning-panel">
+            <h2>Warnings</h2>
+            <p>{{ medicine["warnings"] }}</p>
+        </article>
+        <article class="info-panel">
+            <h2>Side effects</h2>
+            <p>{{ medicine["side_effects"] }}</p>
+        </article>
+        <article class="info-panel">
+            <h2>Ingredients</h2>
+            <p>{{ medicine["ingredients"] }}</p>
+        </article>
+        <article class="info-panel">
+            <h2>Storage</h2>
+            <p>{{ medicine["storage_information"] }}</p>
+        </article>
+        <article class="info-panel">
+            <h2>Interactions</h2>
+            <p>{{ medicine["interaction_information"] }}</p>
+        </article>
+    </div>
+
+    <section class="disclaimer">
+        <strong>Medical safety notice</strong>
+        <p>This application provides general medicine information for educational purposes only. It does not provide medical diagnosis or treatment advice. Consult a qualified doctor or pharmacist for personal medical advice.</p>
+    </section>
+
+    <p class="source-note"><strong>Information source:</strong> {{ medicine["source"] }}</p>
+    {% endif %}
+</section>
+{% endblock %}

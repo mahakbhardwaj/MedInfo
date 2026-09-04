@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Chatbot | MedInfo{% endblock %}
+
+{% block content %}
+<section class="chat-page" data-medicine-id="{{ context_medicine['id'] if context_medicine else '' }}">
+    <div class="chat-heading">
+        <div>
+            <p class="eyebrow">Information assistant</p>
+            <h1>Ask about a medicine</h1>
+            <p class="intro">Ask about uses, side effects, warnings, ingredients, storage, or interactions.</p>
+            {% if context_medicine %}
+            <p class="context-indicator">Currently discussing: <strong>{{ context_medicine["name"] }}</strong></p>
+            {% endif %}
+        </div>
+        <button id="clear-chat" class="secondary-button" type="button">Clear conversation</button>
+    </div>
+
+    <div id="chat-messages" class="chat-messages" aria-live="polite">
+        <div class="message bot-message">
+            <span class="message-label">MedInfo assistant</span>
+            <p>Hello. Tell me the medicine name and what you would like to know.</p>
+        </div>
+    </div>
+
+    <form id="chat-form" class="chat-form">
+        <label for="chat-question">Your question</label>
+        <div class="chat-input-row">
+            <input id="chat-question" name="question" type="text" placeholder="What is Paracetamol used for?" autocomplete="off">
+            <button type="submit">Send</button>
+        </div>
+        <p id="chat-status" class="chat-status" role="status" aria-live="polite"></p>
+        <p id="chat-loading" class="chat-loading" hidden>Preparing your question...</p>
+    </form>
+
+    <section class="disclaimer">
+        <strong>Medical safety notice</strong>
+        <p>This application provides general medicine information for educational purposes only. It does not provide medical diagnosis or treatment advice. Consult a qualified doctor or pharmacist for personal medical advice.</p>
+    </section>
+</section>
+<script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Medicine Search | MedInfo{% endblock %}
+
+{% block content %}
+<section class="search-page">
+    <p class="eyebrow">Medicine library</p>
+    <h1>Search medicines</h1>
+    <p class="intro">Search the demo database by medicine name or generic name.</p>
+
+    <form class="search-form" action="{{ url_for('medicine_search') }}" method="get">
+        <label for="medicine-search">Medicine name</label>
+        <div class="search-row">
+            <input id="medicine-search" name="medicine" type="search" value="{{ search_term }}" placeholder="e.g. Paracetamol" autocomplete="off">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    {% if search_term and medicines %}
+        <div class="results-heading">
+            <h2>Search results</h2>
+            <p>{{ medicines|length }} result{% if medicines|length != 1 %}s{% endif %} for “{{ search_term }}”</p>
+        </div>
+        <div class="results-list">
+            {% for medicine in medicines %}
+                <article class="result-card">
+                    <span class="feature-number">MEDICINE</span>
+                    <h3><a href="{{ url_for('medicine_details', medicine_id=medicine['id']) }}">{{ medicine["name"] }}</a></h3>
+                    <p><strong>Generic name:</strong> {{ medicine["generic_name"] }}</p>
+                    <p><strong>Category:</strong> {{ medicine["category"] }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    {% elif search_term %}
+        <div class="empty-state">
+            <h2>Medicine not found</h2>
+            <p>No medicine matched “{{ search_term }}”. Try another name or check the spelling.</p>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>Start with a medicine name</h2>
+            <p>Enter a name above to search the medicine database.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

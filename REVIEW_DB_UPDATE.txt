@@ -1,0 +1,69 @@
+REVIEW-ONLY DATABASE UPDATE SCRIPT
+
+This script has not been executed.
+It does not change the database schema, delete medicines, or insert records.
+Each UPDATE is protected by an exact old-value condition.
+
+BEGIN TRANSACTION;
+
+-- Medicine: Paracetamol
+-- Field: general_uses
+-- Old value: Demo information: commonly used for pain and fever. Follow the product label and ask a healthcare professional for advice.
+-- New value: Used to relieve pain and reduce fever.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/paracetamol-for-adults/
+UPDATE medicines
+SET general_uses = 'Used to relieve pain and reduce fever.'
+WHERE name = 'Paracetamol'
+  AND general_uses = 'Demo information: commonly used for pain and fever. Follow the product label and ask a healthcare professional for advice.';
+
+-- Medicine: Paracetamol
+-- Field: warnings
+-- Old value: Demo information: do not use more than the label allows. Ask a healthcare professional if you have questions or other health conditions.
+-- New value: Do not take more than directed on the package. Ask a doctor or pharmacist if you have liver problems or take other medicines.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/paracetamol-for-adults/
+UPDATE medicines
+SET warnings = 'Do not take more than directed on the package. Ask a doctor or pharmacist if you have liver problems or take other medicines.'
+WHERE name = 'Paracetamol'
+  AND warnings = 'Demo information: do not use more than the label allows. Ask a healthcare professional if you have questions or other health conditions.';
+
+-- Medicine: Paracetamol
+-- Field: side_effects
+-- Old value: Demo information: medicines can cause side effects. Read the package leaflet and seek professional advice if you are concerned.
+-- New value: Side effects are uncommon when taken as directed, but allergic reactions can occur. Read the package leaflet and seek medical advice if concerned.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/paracetamol-for-adults/
+UPDATE medicines
+SET side_effects = 'Side effects are uncommon when taken as directed, but allergic reactions can occur. Read the package leaflet and seek medical advice if concerned.'
+WHERE name = 'Paracetamol'
+  AND side_effects = 'Demo information: medicines can cause side effects. Read the package leaflet and seek professional advice if you are concerned.';
+
+-- Medicine: Ibuprofen
+-- Field: general_uses
+-- Old value: Demo information: commonly used for some types of pain and inflammation. Follow the product label and ask a healthcare professional for advice.
+-- New value: Used to relieve pain, reduce inflammation, and reduce fever.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/ibuprofen-for-adults/
+UPDATE medicines
+SET general_uses = 'Used to relieve pain, reduce inflammation, and reduce fever.'
+WHERE name = 'Ibuprofen'
+  AND general_uses = 'Demo information: commonly used for some types of pain and inflammation. Follow the product label and ask a healthcare professional for advice.';
+
+-- Medicine: Ibuprofen
+-- Field: warnings
+-- Old value: Demo information: ask a healthcare professional whether this medicine is suitable for you, especially if you have other health conditions.
+-- New value: Ask a doctor or pharmacist whether this medicine is suitable if you have stomach, asthma, heart, liver, kidney, or blood-pressure problems.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/ibuprofen-for-adults/
+UPDATE medicines
+SET warnings = 'Ask a doctor or pharmacist whether this medicine is suitable if you have stomach, asthma, heart, liver, kidney, or blood-pressure problems.'
+WHERE name = 'Ibuprofen'
+  AND warnings = 'Demo information: ask a healthcare professional whether this medicine is suitable for you, especially if you have other health conditions.';
+
+-- Medicine: Ibuprofen
+-- Field: side_effects
+-- Old value: Demo information: medicines can cause side effects. Read the package leaflet and seek professional advice if you are concerned.
+-- New value: Common side effects can include indigestion, stomach ache, nausea, or vomiting. Read the package leaflet and seek medical advice if concerned.
+-- Source/reference: NHS, https://www.nhs.uk/medicines/ibuprofen-for-adults/
+UPDATE medicines
+SET side_effects = 'Common side effects can include indigestion, stomach ache, nausea, or vomiting. Read the package leaflet and seek medical advice if concerned.'
+WHERE name = 'Ibuprofen'
+  AND side_effects = 'Demo information: medicines can cause side effects. Read the package leaflet and seek professional advice if you are concerned.';
+
+COMMIT;

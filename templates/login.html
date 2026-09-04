@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Login | MedInfo{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+    <p class="eyebrow">Welcome back</p>
+    <h1>Log in</h1>
+    <form class="auth-form" method="post">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p class="auth-switch">New to MedInfo? <a href="{{ url_for('register') }}">Create an account</a></p>
+</section>
+{% endblock %}

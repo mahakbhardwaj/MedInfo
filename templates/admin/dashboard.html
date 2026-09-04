@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | MedInfo{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <p class="eyebrow">Administration</p>
+    <h1>Admin dashboard</h1>
+    <div class="stat-grid">
+        <div class="stat-card"><strong>{{ statistics["medicines"] }}</strong><span>Total medicines</span></div>
+        <div class="stat-card"><strong>{{ statistics["users"] }}</strong><span>Registered users</span></div>
+        <div class="stat-card"><strong>{{ statistics["conversations"] }}</strong><span>Chatbot conversations</span></div>
+    </div>
+    <div class="admin-links">
+        <a class="dashboard-card" href="{{ url_for('admin_medicines') }}"><h2>Manage Medicines</h2><p>View, edit, or remove medicine records.</p></a>
+        <a class="dashboard-card" href="{{ url_for('admin_add_medicine') }}"><h2>Add Medicine</h2><p>Add a complete record to the shared database.</p></a>
+        <a class="dashboard-card" href="{{ url_for('admin_users') }}"><h2>Manage Users</h2><p>Review registered account details and roles.</p></a>
+        <a class="dashboard-card" href="{{ url_for('admin_chat_statistics') }}"><h2>Chat Statistics</h2><p>See conversation counts grouped by intent.</p></a>
+    </div>
+</section>
+{% endblock %}
